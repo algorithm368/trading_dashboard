@@ -13,7 +13,7 @@ const EmptyState: React.FC = () => (
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M12 6v6h4m6 6a9 9 0 11-18 0 9 9 0 0118 0z"
+        d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
       />
     </svg>
     <h2 className="text-xl font-semibold text-gray-600 mb-2">

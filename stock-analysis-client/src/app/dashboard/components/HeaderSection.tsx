@@ -34,7 +34,7 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
           Trading Dashboard
         </h1>
         <p className="text-gray-600 text-sm md:text-base">
-          Real-time analysis for {data?.symbol || symbol}
+          Real-time analysis for {symbol || "—"}
         </p>
       </div>
       {data?.current_price !== undefined && (
