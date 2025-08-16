@@ -6,14 +6,9 @@ Advanced technical analysis with comprehensive indicators, risk management, and 
 import pandas as pd
 import numpy as np
 import yfinance as yf
-import matplotlib.pyplot as plt
-import seaborn as sns
-from datetime import datetime, timedelta
-from typing import Dict, List, Tuple, Optional, Union
+from typing import Dict, List
 import logging
-from dataclasses import dataclass
 from dataclasses import asdict
-from enum import Enum
 import warnings
 warnings.filterwarnings('ignore')
 
