@@ -1,15 +1,22 @@
 import React from "react";
 import { RefreshCw } from "lucide-react";
 
-interface HeaderSectionProps {
-  data: unknown;
+type AnalysisData = {
+  symbol?: string;
+  current_price?: number;
+  price?: number;
+  change?: number;
+};
+
+type HeaderSectionProps = {
+  data?: AnalysisData;
   symbol: string;
   period: string;
   setSymbol: (s: string) => void;
   setPeriod: (p: string) => void;
   loading: boolean;
   loadTradingData: () => void;
-}
+};
 
 const HeaderSection: React.FC<HeaderSectionProps> = ({
   data,
@@ -30,7 +37,7 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({
           Real-time analysis for {data?.symbol || symbol}
         </p>
       </div>
-      {data && (
+      {data?.current_price !== undefined && (
         <div className="text-right">
           <div className="text-2xl md:text-3xl font-bold text-gray-900">
             ${data.current_price.toFixed(2)}

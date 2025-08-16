@@ -160,7 +160,7 @@ export default function TradingDashboard() {
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
         <div className="max-w-7xl mx-auto p-6">
           <HeaderSection
-            data={null}
+            data={undefined}
             symbol={symbol}
             period={period}
             setSymbol={setSymbol}
@@ -190,7 +190,7 @@ export default function TradingDashboard() {
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
         <div className="max-w-7xl mx-auto p-6">
           <HeaderSection
-            data={null}
+            data={undefined}
             symbol={symbol}
             period={period}
             setSymbol={setSymbol}
@@ -219,7 +219,7 @@ export default function TradingDashboard() {
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
         <div className="max-w-7xl mx-auto p-6">
           <HeaderSection
-            data={null}
+            data={undefined}
             symbol={symbol}
             period={period}
             setSymbol={setSymbol}
@@ -237,19 +237,19 @@ export default function TradingDashboard() {
   }
 
   // Process chart data - handle both signal_history array and potential empty data
-  const chartData =
-    data.signal_history?.slice(-10).map((signal) => ({
-      date: new Date(signal.date).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-      }),
-      price: signal.price,
-      confidence: signal.confidence * 100,
-      type: signal.type,
-    })) || [];
+  const chartData = data?.signal_history
+    ? data.signal_history.slice(-10).map((signal) => ({
+        date: new Date(signal.date).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        }),
+        value: signal.price,
+        price: signal.price,
+      }))
+    : [];
 
   // Process indicator data for IndicatorsSection
-  const indicatorData = data.technical_indicators
+  const indicatorData = data?.technical_indicators
     ? Object.entries(data.technical_indicators)
         .filter(([key]) => !key.includes("Signal") && !key.includes("Trend"))
         .slice(0, 8)
@@ -263,7 +263,7 @@ export default function TradingDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
       <div className="max-w-7xl mx-auto p-6">
         <HeaderSection
-          data={data}
+          data={data ?? undefined}
           symbol={symbol}
           period={period}
           setSymbol={setSymbol}
@@ -272,11 +272,11 @@ export default function TradingDashboard() {
           loadTradingData={() => loadTradingData(symbol)}
         />
         <NavigationTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-        {activeTab === "overview" && (
+        {activeTab === "overview" && data && (
           <OverviewSection data={data} chartData={chartData} />
         )}
-        {activeTab === "signals" && <SignalsSection data={data} />}
-        {activeTab === "indicators" && (
+        {activeTab === "signals" && data && <SignalsSection data={data} />}
+        {activeTab === "indicators" && data && (
           <IndicatorsSection data={data} indicatorData={indicatorData} />
         )}
       </div>

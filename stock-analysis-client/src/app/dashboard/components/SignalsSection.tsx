@@ -1,9 +1,30 @@
 import React from "react";
 import SignalStrengthBadge from "./SignalStrengthBadge";
 
-interface SignalsSectionProps {
-  data: any;
-}
+// Define types for props
+type LatestSignal = {
+  strength: string;
+  type: string;
+  confidence: string;
+  reasons: string[];
+};
+
+type SignalHistoryItem = {
+  date: string;
+  strength: string;
+  type: string;
+  price: number;
+  confidence: number;
+};
+
+type DataType = {
+  latest_signal: LatestSignal;
+  signal_history: SignalHistoryItem[];
+};
+
+type SignalsSectionProps = {
+  data: DataType;
+};
 
 const SignalsSection: React.FC<SignalsSectionProps> = ({ data }) => (
   <div className="space-y-6">
@@ -13,19 +34,19 @@ const SignalsSection: React.FC<SignalsSectionProps> = ({ data }) => (
       </h2>
       <div className="flex items-center justify-between mb-4">
         <SignalStrengthBadge
-          strength={data.latest_signal.strength}
-          type={data.latest_signal.type}
+          strength={data?.latest_signal?.strength ?? ""}
+          type={data?.latest_signal?.type ?? ""}
         />
         <span className="text-sm text-gray-500">
-          {data.latest_signal.confidence} confidence
+          {data?.latest_signal?.confidence ?? "-"} confidence
         </span>
       </div>
       <div>
         <p className="text-sm font-medium text-gray-700 mb-2">Reasons:</p>
         <div className="flex flex-wrap gap-2">
-          {data.latest_signal.reasons.map((reason: string, index: number) => (
+          {data?.latest_signal?.reasons?.map((reason: string) => (
             <span
-              key={index}
+              key={reason}
               className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
             >
               {reason}
@@ -39,7 +60,7 @@ const SignalsSection: React.FC<SignalsSectionProps> = ({ data }) => (
         Recent Signals
       </h2>
       <div className="space-y-4">
-        {[...data.signal_history].reverse().map((signal: unknown) => (
+        {[...(data?.signal_history ?? [])].reverse().map((signal) => (
           <div
             key={signal.date}
             className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
