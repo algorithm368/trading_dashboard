@@ -6,7 +6,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://trading-dashboard-ooexw8fu7-algorithm368s-projects.vercel.app"],
+    allow_origins=["https://trading-dashboard-plum.vercel.app"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
